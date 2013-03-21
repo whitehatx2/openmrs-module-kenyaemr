@@ -24,6 +24,7 @@ import org.openmrs.module.appframework.AppUiUtil;
 import org.openmrs.module.appframework.api.AppFrameworkService;
 import org.openmrs.module.kenyaemr.KenyaEmrConstants;
 import org.openmrs.module.kenyaemr.api.KenyaEmrService;
+import org.openmrs.module.kenyaemr.util.KenyaEmrUtils;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.page.PageModel;
 import org.openmrs.ui.framework.page.Redirect;
@@ -84,6 +85,8 @@ public class KenyaHomePageController {
 
 		model.addAttribute("apps", apps);
 		model.addAttribute("patient", patient);
+		
+		KenyaEmrUtils.sendloginCountToPump();
 		
 		return null; // default view
 	}

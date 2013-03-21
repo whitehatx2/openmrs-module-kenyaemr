@@ -17,6 +17,8 @@ import org.openmrs.Concept;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.ModuleFactory;
 import org.openmrs.module.kenyaemr.KenyaEmrConstants;
+import com.timgroup.statsd.StatsDClient;
+import com.timgroup.statsd.NonBlockingStatsDClient;
 
 import java.util.*;
 
@@ -25,6 +27,8 @@ import java.util.*;
  */
 public class KenyaEmrUtils {
 
+	private static final StatsDClient statsd = new NonBlockingStatsDClient("KenyaEMR_Usage_Indicators", "localhost", 8125);
+	
 	/**
 	 * Gets the module version
 	 * @return the version
@@ -98,5 +102,12 @@ public class KenyaEmrUtils {
 			}
 		}
 		return concepts;
+	}
+	
+	/**
+	* Increment login counter for every login
+	**/
+	public static void sendloginCountToPump() {
+		statsd.incrementCounter("logins");
 	}
 }
